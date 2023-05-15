@@ -191,6 +191,11 @@ li:hover {
 	color: #B1663C;
 }
 
+a {
+	text-decoration: none;
+	color: black;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -231,13 +236,24 @@ li:hover {
 
 }
 
-.filter {
+.filter,
+.login-btn {
 	font-family: 'Syne';
 	color: #1D6154;
 	background-color: white;
 	border: 1.5px solid #1D6154;
 	border-radius: 20px;
 	padding: 8px 13px 8px 13px;
+}
+
+.login-btn {
+	background-color: #1D6154;
+	color: white;
+	width: 30%;
+}
+
+.login-btn:hover {
+	background-color: #227566;
 }
 
 .filter:hover {
@@ -250,6 +266,16 @@ li:hover {
 	background-color: #1D6154;
 	color: white;
 	cursor: pointer;
+}
+
+.login-position {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	justify-content: center;
+	gap: 30px;
+	margin: 20%;
+
 }
 
 .gallery {
