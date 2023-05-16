@@ -246,12 +246,6 @@ a {
 	padding: 8px 13px 8px 13px;
 }
 
-.login-btn {
-	background-color: #1D6154;
-	color: white;
-	width: 30%;
-}
-
 .login-btn:hover {
 	background-color: #227566;
 }
@@ -266,16 +260,6 @@ a {
 	background-color: #1D6154;
 	color: white;
 	cursor: pointer;
-}
-
-.login-position {
-	display: flex;
-	flex-direction: column;
-	align-content: center;
-	justify-content: center;
-	gap: 30px;
-	margin: 20%;
-
 }
 
 .gallery {
