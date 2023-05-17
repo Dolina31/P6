@@ -47,8 +47,8 @@ label {
 
 .error-message {
     color: rgb(224, 3, 3);
-    padding-top: 10px;
-    padding-bottom: 5px;
+    padding-top: 9px;
+    padding-bottom: 6px;
     visibility: hidden;
 }
 

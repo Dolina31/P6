@@ -56,7 +56,47 @@ function worksFilter() {
 };
 worksFilter();
 
-const inputEmail = document.querySelector(`input[type="email"]`);
-const inputPassword = document.querySelector(`input[type="password"]`);
+//----- Fonctions pour le log in
+
+const input = document.querySelectorAll(`input`);
 const errorMessage = document.querySelector(".error-message");
-const loginBtn = document.querySelector(".login-btn")
+const loginBtn = document.querySelector(".login-btn");
+
+let loginRequest = {
+    method: "POST",
+    headers: {
+        "Content-type": "application/json"
+    },
+    body: null,
+    mode: "cors",
+    Credentials: "same-origin",
+};
+
+function loginInputValue() {
+    const emailValue = input[0].value;
+    const passwordValue = input[1].value;
+
+    loginRequest.body = JSON.stringify({
+        email: emailValue,
+        password: passwordValue,
+    });
+}
+
+let token;
+
+loginBtn.addEventListener("click", () => {
+    loginInputValue();
+
+    fetch("http://localhost:5678/api/users/login", loginRequest)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if (data.token) {
+                window.location.href = "./index.html";
+            } else {
+                errorMessage.style.visibility = "visible"
+            }
+        })
+
+});
+
