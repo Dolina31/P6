@@ -8,8 +8,10 @@ async function WorksImport() {
 
     await fetch("http://localhost:5678/api/works")
         .then((res) => res.json())
-        .then((data) => (works = data))
-        .then(() => { generateWorks(works) });
+        .then((data) => {
+            works = data
+            generateWorks(works)
+        })
 }
 WorksImport()
 
@@ -33,24 +35,17 @@ function generateWorks(worksArray) {
 }
 
 function worksFilter() {
-    filters.forEach((filter, index) => {
+    filters.forEach((filter) => {
+        const filterValue = filter.textContent;
+
         filter.addEventListener("click", () => {
-            switch (index) {
-                case 1:
-                    const worksOnObjets = works.filter(work => work.category.name === "Objets");
-                    generateWorks(worksOnObjets);
-                    break;
-                case 2:
-                    const worksOnAppartements = works.filter(work => work.category.name === "Appartements");
-                    generateWorks(worksOnAppartements);
-                    break;
-                case 3:
-                    const worksOnHotels = works.filter(work => work.category.name === "Hotels & restaurants");
-                    generateWorks(worksOnHotels);
-                    break;
-                default:
-                    generateWorks(works);
+            let filteredWorks = [];
+            if (filterValue === "Tous") {
+                filteredWorks = works;
+            } else {
+                filteredWorks = works.filter(work => work.category.name === filterValue);
             }
+            generateWorks(filteredWorks);
         });
     });
 };
@@ -61,6 +56,8 @@ worksFilter();
 const input = document.querySelectorAll(`input`);
 const errorMessage = document.querySelector(".error-message");
 const loginBtn = document.querySelector(".login-btn");
+const editingToolsBanner = document.querySelector(".editing-tools-banner");
+const modalTrigger = document.querySelectorAll(".modal-trigger")
 
 let loginRequest = {
     method: "POST",
@@ -82,21 +79,17 @@ function loginInputValue() {
     });
 }
 
-let token;
-
 loginBtn.addEventListener("click", () => {
     loginInputValue();
-
     fetch("http://localhost:5678/api/users/login", loginRequest)
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            let token = data.token;
+            sessionStorage.setItem("Token", token);
             if (data.token) {
                 window.location.href = "./index.html";
             } else {
-                errorMessage.style.visibility = "visible"
+                errorMessage.style.visibility = "visible";
             }
-        })
-
+        });
 });
-
