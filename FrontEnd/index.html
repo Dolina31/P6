@@ -15,10 +15,10 @@
 
 <header>
 	<div class="editing-tools-banner">
-		<div class="editing-tools_position">
+		<button class="editing-tools_position modal-button">
 			<i class="fa-regular fa-pen-to-square"></i>
 			<p>Mode édition</p>
-		</div>
+		</button>
 		<button class="apply-change-btn">Publier les changements</button>
 	</div>
 	<div class="logo-nav-position">
@@ -33,14 +33,26 @@
 		</nav>
 	</div>
 </header>
+
 <main>
+	<dialog class="modal">
+		<i class="fa-solid fa-xmark close_modal_icon"></i>
+		<div class="modal_content">
+			<h3>Galerie photo</h3>
+			<div class="modal_img">
+
+			</div>
+			<button class="modal_add-btn">Ajouter une photo</button>
+			<p class="modal_delete_gallery">Supprimer la galerie</p>
+		</div>
+	</dialog>
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
-			<div class="modal-trigger under-img">
+			<button class="modal-button under-img">
 				<i class="fa-regular fa-pen-to-square"></i>
 				<p>Modifier</p>
-			</div>
+			</button>
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -50,12 +62,12 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<div class="modal-trigger-and-h2">
+		<div class="modal-button-and-h2">
 			<h2>Mes Projets</h2>
-			<div class="modal-trigger">
+			<button class="modal-button">
 				<i class="fa-regular fa-pen-to-square"></i>
 				<p>Modifier</p>
-			</div>
+			</button>
 		</div>
 		<div class="filter-container">
 			<button class="filter">Tous</button>

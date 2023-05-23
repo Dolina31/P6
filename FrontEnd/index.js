@@ -32,6 +32,17 @@ function generateWorks(worksArray) {
         figcaption.innerHTML = work.title;
         figure.appendChild(figcaption);
     });
+
+    // affichage des images dans la modale
+
+    let modalContentHTML = "";
+    worksArray.forEach((work) => {
+        modalContentHTML += `
+            <img src="${work.imageUrl}">
+            
+      `;
+    });
+    modalImg.innerHTML = modalContentHTML;
 }
 
 function worksFilter() {
@@ -51,45 +62,23 @@ function worksFilter() {
 };
 worksFilter();
 
-//----- Fonctions pour le log in
 
-const input = document.querySelectorAll(`input`);
-const errorMessage = document.querySelector(".error-message");
-const loginBtn = document.querySelector(".login-btn");
-const editingToolsBanner = document.querySelector(".editing-tools-banner");
-const modalTrigger = document.querySelectorAll(".modal-trigger")
+const modal = document.querySelector("dialog")
+const modalButton = document.querySelectorAll(".modal-button")
+const closeModalIcon = document.querySelector(".close_modal_icon")
+const modalContent = document.querySelector(".modal_content")
+const modalImg = document.querySelector(".modal_img")
 
-let loginRequest = {
-    method: "POST",
-    headers: {
-        "Content-type": "application/json"
-    },
-    body: null,
-    mode: "cors",
-    Credentials: "same-origin",
-};
+function OpenAndCloseModal() {
 
-function loginInputValue() {
-    const emailValue = input[0].value;
-    const passwordValue = input[1].value;
-
-    loginRequest.body = JSON.stringify({
-        email: emailValue,
-        password: passwordValue,
+    modalButton.forEach(button => {
+        button.addEventListener("click", () => {
+            modal.show();
+        })
     });
-}
+    closeModalIcon.addEventListener("click", () => {
+        modal.close()
+    })
 
-loginBtn.addEventListener("click", () => {
-    loginInputValue();
-    fetch("http://localhost:5678/api/users/login", loginRequest)
-        .then(res => res.json())
-        .then(data => {
-            let token = data.token;
-            sessionStorage.setItem("Token", token);
-            if (data.token) {
-                window.location.href = "./index.html";
-            } else {
-                errorMessage.style.visibility = "visible";
-            }
-        });
-});
+}
+OpenAndCloseModal()

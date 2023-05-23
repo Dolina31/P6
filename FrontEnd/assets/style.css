@@ -1,8 +1,3 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
 html,
 body,
 div,
@@ -147,7 +142,6 @@ body {
 	justify-content: center;
 	gap: 25px;
 	background-color: black;
-	color: white;
 	padding: 12px;
 }
 
@@ -157,6 +151,7 @@ body {
 	gap: 10px;
 	font-size: 1.1em;
 	padding-top: 3px;
+	color: white;
 }
 
 .icon-banner-position i {
@@ -178,17 +173,19 @@ body {
 	margin: 30px 0 50px 0;
 }
 
-.modal-trigger {
+.modal-button {
 	display: flex;
 	gap: 6px;
 	font-size: 1em;
+	background: none;
+	border: none;
 }
 
-.modal-trigger i {
+.modal-button i {
 	font-size: 1.18em;
 }
 
-.modal-trigger-and-h2 {
+.modal-button-and-h2 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -201,6 +198,63 @@ body {
 	gap: 6px;
 	padding-top: 15px;
 	padding-left: 60px;
+}
+
+dialog {
+	height: 85%;
+	width: 35%;
+	border-radius: 15px;
+	border: 0.5px solid grey;
+}
+
+dialog::backdrop {
+	opacity: 0.3;
+}
+
+.close_modal_icon {
+	font-size: 1.7em;
+	position: absolute;
+	top: 20px;
+	right: 40px;
+}
+
+.modal_content {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 30px;
+	padding-top: 50px;
+}
+
+.modal_img {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
+}
+
+.modal_img img {
+	width: 105px;
+}
+
+.modal_add-btn {
+	background-color: #1D6154;
+	color: white;
+	border-radius: 20px;
+	padding: 8px 13px 8px 13px;
+	border: 1.5px solid #1D6154;
+	font-family: 'Syne';
+	font-size: 1.2em;
+}
+
+.modal_delete_gallery {
+	color: #D65353;
+	font-family: 'Syne';
+}
+
+h3 {
+	font-family: 'Work Sans';
+	font-size: 2.1em;
 }
 
 section {
