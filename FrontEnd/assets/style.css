@@ -143,6 +143,7 @@ body {
 	gap: 25px;
 	background-color: black;
 	padding: 12px;
+	display: none;
 }
 
 .editing-tools_position {
@@ -179,6 +180,8 @@ body {
 	font-size: 1em;
 	background: none;
 	border: none;
+	cursor: pointer;
+	display: none;
 }
 
 .modal-button i {
@@ -201,14 +204,18 @@ body {
 }
 
 dialog {
+	position: fixed;
 	height: 85%;
-	width: 35%;
-	border-radius: 15px;
-	border: 0.5px solid grey;
+	width: 40%;
+	border-radius: 10px;
+	border: none;
+	top: 95%;
+	left: 40%;
+	transform: translate(-50%, -50%);
 }
 
 dialog::backdrop {
-	opacity: 0.3;
+	background-color: #00000073;
 }
 
 .close_modal_icon {
@@ -216,6 +223,7 @@ dialog::backdrop {
 	position: absolute;
 	top: 20px;
 	right: 40px;
+	cursor: pointer;
 }
 
 .modal_content {
@@ -223,18 +231,63 @@ dialog::backdrop {
 	flex-direction: column;
 	flex-wrap: wrap;
 	align-items: center;
-	gap: 30px;
-	padding-top: 50px;
+	padding-top: 30px;
 }
 
 .modal_img {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 15px;
+	gap: 12px;
+	width: 88%;
+	padding-top: 30px;
+	padding-bottom: 20px;
 }
 
 .modal_img img {
-	width: 105px;
+	width: 95px;
+	height: 120px;
+}
+
+.modal_img-edit_position:hover .modal_arrow-icon {
+	visibility: visible;
+}
+
+.modal_img-edit_position {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	position: relative;
+}
+
+.modal_img-edit_position i {
+	color: white;
+	position: absolute;
+	font-size: 0.9em;
+	padding: 4px;
+	background-color: black;
+	border-radius: 2px;
+}
+
+.modal_trash-icon {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	cursor: pointer;
+}
+
+.modal_arrow-icon {
+	position: absolute;
+	top: 5px;
+	right: 26px;
+	visibility: hidden;
+}
+
+
+.modal_line {
+	border: 1px solid rgba(150, 149, 149, 0.74);
+	border-top: none;
+	width: 80%;
+	margin-top: 5px;
 }
 
 .modal_add-btn {
@@ -244,12 +297,17 @@ dialog::backdrop {
 	padding: 8px 13px 8px 13px;
 	border: 1.5px solid #1D6154;
 	font-family: 'Syne';
-	font-size: 1.2em;
+	font-size: 1.1em;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	width: 40%;
+	cursor: pointer;
 }
 
 .modal_delete_gallery {
 	color: #D65353;
 	font-family: 'Syne';
+	cursor: pointer;
 }
 
 h3 {

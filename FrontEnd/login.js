@@ -28,7 +28,7 @@ loginBtn.addEventListener("click", async () => {
         .then(res => res.json())
         .then(data => {
             let token = data.token;
-            localStorage.setItem("Token", token);
+            sessionStorage.setItem("Token", token);
             if (token) {
                 window.location.href = "./index.html";
                 console.log(data.token);
