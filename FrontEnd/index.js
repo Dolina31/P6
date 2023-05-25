@@ -4,18 +4,17 @@ const modalImg = document.querySelector(".modal_img");
 
 let works = [];
 
-async function WorksImport() {
-    await fetch("http://localhost:5678/api/works")
+function WorksImport() {
+    fetch("http://localhost:5678/api/works")
         .then((res) => res.json())
         .then((data) => {
             works = data;
             generateWorks(works);
-            modalImgImport(works); // Affiche toutes les images dans la modale
+            modalImgImport(works);
 
             console.log(works);
         });
 }
-
 WorksImport();
 
 function generateWorks(worksArray) {
@@ -56,16 +55,15 @@ function worksFilter() {
 }
 worksFilter();
 
-
-
-
-// fonctionnement de la modale
+// ------- fonctionnement de la modale
 
 const modal = document.querySelector("dialog");
 const modalButton = document.querySelectorAll(".modal-button");
 const closeModalIcon = document.querySelector(".close_modal_icon");
 const modalContent = document.querySelector(".modal_content");
 const editingToolsBanner = document.querySelector(".editing-tools-banner");
+const modalAddWorkBtn = document.querySelector(".modal_add-btn")
+
 
 
 //condition si utilisateur connecté
@@ -79,24 +77,23 @@ if (sessionStorage.getItem("Token")) {
     })
 }
 
-
 function modalImgImport(worksArray) {
     let modalContentHTML = "";
     worksArray.forEach((work) => {
         modalContentHTML += `
       <div class="modal_img-edit_position">
         <img src="${work.imageUrl}">
-        <i class="fa-regular fa-trash-can modal_trash-icon"></i>
+        <i class="fa-regular fa-trash-can modal_trash-icon" data-id=${work.id}></i>
         <i class="fa-solid fa-arrows-up-down-left-right modal_arrow-icon"></i>
         <p>éditer</p>
       </div>
-    `;
+    `
     });
     modalImg.innerHTML = modalContentHTML;
+
+    const modalDeleteWorkIcon = document.querySelectorAll(".modal_trash-icon")
 }
 
-const modalDeleteWorkIcon = document.querySelectorAll(".modal_can-icon")
-console.log(modalDeleteWorkIcon);
 
 function OpenAndCloseModal() {
     modalButton.forEach((button) => {
@@ -115,3 +112,55 @@ function OpenAndCloseModal() {
     });
 }
 OpenAndCloseModal();
+
+
+function modalVersionToAddWork() {
+    modalAddWorkBtn.addEventListener("click", () => {
+        modalContent.innerHTML = "";
+        modalContent.innerHTML =
+            `
+            <i class="fa-solid fa-arrow-left modal_add-work_return-icon"></i>
+            <div class="modal_content">
+                <h3>Ajout photo</h3>
+                <form action="">
+                    <div class="add-img-form">
+                        <i class="fa-sharp fa-regular fa-image"></i>
+                        <label for="photo" class="form-add-img-button">+ Ajouter photo</label>
+                        <input type="file" id="photo" name="photo">
+                        <p>jpg, png : 4mo max</p>
+                    </div>
+                    <div>
+                        <div class="modal_add-work_input">
+                            <label for="titre">Titre</label>
+                            <input type="text" id="titre" name="titre">
+                        </div>
+                        <div class="modal_add-work_input">
+                            <label for="categorie">Catégorie</label>
+                            <select name="categorie" id="categorie">
+                                <option value=""></option>
+                                <option value="objets">Objets</option>
+                                <option value="appartements">Appartements</option>
+                                <option value="hotels_et_restaurants">Hotels et restaurants</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            <span class="modal_line"></span>
+            <button class="modal_add-work_confirm-btn">Valider</button>
+            </div>
+        `;
+        const modalAddworkReturnIcon = document.querySelector(".modal_add-work_return-icon")
+
+        modalAddworkReturnIcon.addEventListener("click", () => {
+            modalContent.innerHTML = ""
+            modalContent.innerHTML = modalContentHTML
+        })
+
+    });
+
+}
+modalVersionToAddWork()
+
+
+
+

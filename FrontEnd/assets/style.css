@@ -231,7 +231,7 @@ dialog::backdrop {
 	flex-direction: column;
 	flex-wrap: wrap;
 	align-items: center;
-	padding-top: 30px;
+	padding-top: 35px;
 }
 
 .modal_img {
@@ -310,9 +310,78 @@ dialog::backdrop {
 	cursor: pointer;
 }
 
-h3 {
-	font-family: 'Work Sans';
-	font-size: 2.1em;
+.modal_add-work_return-icon {
+	font-size: 1.6em;
+	padding-left: 10px;
+	cursor: pointer;
+	position: absolute;
+	top: 20px;
+	left: 40px;
+}
+
+.add-img-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 30px 180px;
+	margin-top: 40px;
+	background-color: #E8F1F6;
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+
+.add-img-form i {
+	font-size: 4em;
+	color: #B9C5CC;
+}
+
+.add-img-form p {
+	font-size: 0.9em;
+}
+
+.add-img-form input {
+	display: none;
+}
+
+.form-add-img-button {
+	font-size: 1.1em;
+	margin-top: 15px;
+	margin-bottom: 10px;
+	padding: 10px 25px;
+	border-radius: 20px;
+	background-color: #CBD6DC;
+	color: #306685;
+}
+
+.modal_add-work_input {
+	padding-top: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	padding-bottom: 15px;
+}
+
+input[type="text"],
+select {
+	padding: 15px;
+	border: none;
+	box-shadow: 0px 4px 14px 0px #0000002c;
+}
+
+select {
+	margin-bottom: 40px;
+}
+
+.modal_add-work_confirm-btn {
+	font-family: 'Syne';
+	margin-top: 30px;
+	padding: 10px;
+	width: 30%;
+	border: none;
+	border-radius: 20px;
+	color: white;
+	background-color: #A7A7A7;
+	font-size: 1.2em;
 }
 
 section {
@@ -340,6 +409,11 @@ h2 {
 	font-weight: 700;
 	font-size: 30px;
 	color: #1D6154
+}
+
+h3 {
+	font-family: 'Work Sans';
+	font-size: 2.1em;
 }
 
 nav ul {
