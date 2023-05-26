@@ -1,7 +1,13 @@
 const gallery = document.querySelector(".gallery");
 const filters = document.querySelectorAll(".filter");
 const modalImg = document.querySelector(".modal_img");
-
+const modal = document.querySelector("dialog");
+const modalButton = document.querySelectorAll(".modal-button");
+const closeModalIcon = document.querySelector(".close_modal_icon");
+const modalContent = document.querySelector(".modal_content");
+const editingToolsBanner = document.querySelector(".editing-tools-banner");
+const modalAddWorkBtn = document.querySelector(".modal_add-btn")
+let initialModalContentHTML = "";
 let works = [];
 
 function WorksImport() {
@@ -57,18 +63,10 @@ worksFilter();
 
 // ------- fonctionnement de la modale
 
-const modal = document.querySelector("dialog");
-const modalButton = document.querySelectorAll(".modal-button");
-const closeModalIcon = document.querySelector(".close_modal_icon");
-const modalContent = document.querySelector(".modal_content");
-const editingToolsBanner = document.querySelector(".editing-tools-banner");
-const modalAddWorkBtn = document.querySelector(".modal_add-btn")
-
-
-
 //condition si utilisateur connecté
+let token = sessionStorage.getItem("Token")
 
-if (sessionStorage.getItem("Token")) {
+if (token) {
     editingToolsBanner.style.display = "flex"
 
     modalButton.forEach(button => {
@@ -76,24 +74,39 @@ if (sessionStorage.getItem("Token")) {
 
     })
 }
+// request pour delete
+let deleteRequest = {
+
+    method: "DELETE",
+    headers: {
+        Authorization: `Bearer ${token}`
+    },
+}
 
 function modalImgImport(worksArray) {
     let modalContentHTML = "";
     worksArray.forEach((work) => {
         modalContentHTML += `
-      <div class="modal_img-edit_position">
-        <img src="${work.imageUrl}">
-        <i class="fa-regular fa-trash-can modal_trash-icon" data-id=${work.id}></i>
-        <i class="fa-solid fa-arrows-up-down-left-right modal_arrow-icon"></i>
-        <p>éditer</p>
-      </div>
-    `
+            <div class="modal_img-edit_position">
+                <img src="${work.imageUrl}">
+                <i class="fa-regular fa-trash-can modal_trash-icon" data-id="${work.id}"></i>
+                <i class="fa-solid fa-arrows-up-down-left-right modal_arrow-icon"></i>
+                <p>éditer</p>
+            </div>
+        `;
     });
     modalImg.innerHTML = modalContentHTML;
 
-    const modalDeleteWorkIcon = document.querySelectorAll(".modal_trash-icon")
-}
+    const modalDeleteWorkIcon = document.querySelectorAll(".modal_trash-icon");
 
+    //Delete work
+    modalDeleteWorkIcon.forEach((trashcan) => {
+        trashcan.addEventListener("click", () => {
+            const workId = trashcan.getAttribute("data-id");
+            fetch(`http://localhost:5678/api/works/${workId}`, deleteRequest)
+        });
+    });
+}
 
 function OpenAndCloseModal() {
     modalButton.forEach((button) => {
@@ -116,6 +129,8 @@ OpenAndCloseModal();
 
 function modalVersionToAddWork() {
     modalAddWorkBtn.addEventListener("click", () => {
+        initialModalContentHTML = modalContent.innerHTML;
+
         modalContent.innerHTML = "";
         modalContent.innerHTML =
             `
@@ -145,22 +160,59 @@ function modalVersionToAddWork() {
                         </div>
                     </div>
                 </form>
-            <span class="modal_line"></span>
-            <button class="modal_add-work_confirm-btn">Valider</button>
+                <span class="modal_line"></span>
+                <button class="modal_add-work_confirm-btn">Valider</button>
             </div>
         `;
-        const modalAddworkReturnIcon = document.querySelector(".modal_add-work_return-icon")
+
+        // fonction de retour
+
+        const modalAddworkReturnIcon = document.querySelector(".modal_add-work_return-icon");
+        const photoInput = document.getElementById("photo");
+        const titleInput = document.getElementById("titre");
+        const selectInput = document.getElementById("categorie");
+        const modalAddWorkConfirmButton = document.querySelector(".modal_add-work_confirm-btn");
 
         modalAddworkReturnIcon.addEventListener("click", () => {
-            modalContent.innerHTML = ""
-            modalContent.innerHTML = modalContentHTML
-        })
+            modalContent.innerHTML = initialModalContentHTML;
+        });
 
+        // add work 
+
+        function modaleAddNewWork() {
+            modalAddWorkConfirmButton.addEventListener("click", () => {
+                let photoValue = photoInput.value;
+                let titleValue = titleInput.value;
+                let selectValue = selectInput.value;
+
+                let addRequest = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        id: 1,
+                        title: titleValue,
+                        image: photoValue,
+                        category: selectValue,
+                        userId: 0
+                    }),
+                    mode: "cors",
+                    Credentials: "same-origin",
+                };
+
+                fetch("http://localhost:5678/api/works", addRequest)
+                    .then(res => {
+                        if (res.ok) {
+                            console.log("res");
+                        }
+                    })
+            });
+        }
+
+        modaleAddNewWork();
     });
-
 }
-modalVersionToAddWork()
 
-
-
-
+modalVersionToAddWork();

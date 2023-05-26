@@ -238,7 +238,7 @@ dialog::backdrop {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 12px;
-	width: 88%;
+	width: 70%;
 	padding-top: 30px;
 	padding-bottom: 20px;
 }
@@ -298,7 +298,7 @@ dialog::backdrop {
 	border: 1.5px solid #1D6154;
 	font-family: 'Syne';
 	font-size: 1.1em;
-	margin-top: 15px;
+	margin-top: 30px;
 	margin-bottom: 15px;
 	width: 40%;
 	cursor: pointer;
