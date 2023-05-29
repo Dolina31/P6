@@ -64,7 +64,7 @@ worksFilter();
 // ------- fonctionnement de la modale
 
 //condition si utilisateur connecté
-let token = sessionStorage.getItem("Token")
+let token = localStorage.getItem("Token")
 
 if (token) {
     editingToolsBanner.style.display = "flex"
@@ -155,7 +155,7 @@ function modalVersionToAddWork() {
                                 <option value=""></option>
                                 <option value="objets">Objets</option>
                                 <option value="appartements">Appartements</option>
-                                <option value="hotels_et_restaurants">Hotels et restaurants</option>
+                                <option value="hotels_&_restaurants">Hotels & restaurants</option>
                             </select>
                         </div>
                     </div>
@@ -181,31 +181,28 @@ function modalVersionToAddWork() {
 
         function modaleAddNewWork() {
             modalAddWorkConfirmButton.addEventListener("click", () => {
-                let photoValue = photoInput.value;
-                let titleValue = titleInput.value;
-                let selectValue = selectInput.value;
+                let formData = new FormData();
+
+                formData.append('image', photoInput.files[0]);
+                formData.append('title', titleInput.value);
+                formData.append('category', selectInput.value);
+
+                console.log(photoInput.files[0]);
+                console.log(titleInput.value);
+                console.log(selectInput.value);
 
                 let addRequest = {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`
+                        "Authorization": "Bearer " + token
                     },
-                    body: JSON.stringify({
-                        id: 1,
-                        title: titleValue,
-                        image: photoValue,
-                        category: selectValue,
-                        userId: 0
-                    }),
-                    mode: "cors",
-                    Credentials: "same-origin",
+                    body: formData
                 };
 
                 fetch("http://localhost:5678/api/works", addRequest)
                     .then(res => {
                         if (res.ok) {
-                            console.log("res");
+                            console.log("requête envoyée");
                         }
                     })
             });
