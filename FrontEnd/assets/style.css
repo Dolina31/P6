@@ -234,6 +234,12 @@ dialog::backdrop {
 	padding-top: 35px;
 }
 
+.modal_content_add-work {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .modal_img {
 	display: flex;
 	flex-wrap: wrap;

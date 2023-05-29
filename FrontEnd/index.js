@@ -9,6 +9,7 @@ const editingToolsBanner = document.querySelector(".editing-tools-banner");
 const modalAddWorkBtn = document.querySelector(".modal_add-btn")
 let initialModalContentHTML = "";
 let works = [];
+let categories = []
 
 function WorksImport() {
     fetch("http://localhost:5678/api/works")
@@ -22,6 +23,17 @@ function WorksImport() {
         });
 }
 WorksImport();
+
+function categoriesImport() {
+    fetch("http://localhost:5678/api/categories")
+        .then((res) => res.json())
+        .then((data) => {
+            categories = data
+
+            console.log(categories);
+        })
+}
+categoriesImport()
 
 function generateWorks(worksArray) {
     gallery.innerHTML = "";
@@ -126,8 +138,17 @@ function OpenAndCloseModal() {
 }
 OpenAndCloseModal();
 
+function generateCategoryOptions() {
+    let optionsHTML = "";
+    categories.forEach((category) => {
+        optionsHTML += `<option value="${category.id}">${category.name}</option>`;
+    });
+    return optionsHTML;
+}
 
 function modalVersionToAddWork() {
+
+
     modalAddWorkBtn.addEventListener("click", () => {
         initialModalContentHTML = modalContent.innerHTML;
 
@@ -135,11 +156,12 @@ function modalVersionToAddWork() {
         modalContent.innerHTML =
             `
             <i class="fa-solid fa-arrow-left modal_add-work_return-icon"></i>
-            <div class="modal_content">
+            <div class="modal_content_add-work">
                 <h3>Ajout photo</h3>
                 <form action="">
                     <div class="add-img-form">
                         <i class="fa-sharp fa-regular fa-image"></i>
+                        <img src="" class="selected-img">
                         <label for="photo" class="form-add-img-button">+ Ajouter photo</label>
                         <input type="file" id="photo" name="photo">
                         <p>jpg, png : 4mo max</p>
@@ -153,9 +175,7 @@ function modalVersionToAddWork() {
                             <label for="categorie">Catégorie</label>
                             <select name="categorie" id="categorie">
                                 <option value=""></option>
-                                <option value="objets">Objets</option>
-                                <option value="appartements">Appartements</option>
-                                <option value="hotels_&_restaurants">Hotels & restaurants</option>
+                                ${generateCategoryOptions()}
                             </select>
                         </div>
                     </div>
@@ -165,19 +185,42 @@ function modalVersionToAddWork() {
             </div>
         `;
 
-        // fonction de retour
+        // fonction de retour    
 
-        const modalAddworkReturnIcon = document.querySelector(".modal_add-work_return-icon");
         const photoInput = document.getElementById("photo");
         const titleInput = document.getElementById("titre");
         const selectInput = document.getElementById("categorie");
         const modalAddWorkConfirmButton = document.querySelector(".modal_add-work_confirm-btn");
+        const selectedImage = document.querySelector(".selected-img")
 
+        const modalAddworkReturnIcon = document.querySelector(".modal_add-work_return-icon");
         modalAddworkReturnIcon.addEventListener("click", () => {
             modalContent.innerHTML = initialModalContentHTML;
         });
 
-        // add work 
+
+
+        photoInput.addEventListener("change", () => {
+            const file = photoInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                selectedImage.src = e.target.result;
+                const addImgForm = document.querySelector(".add-img-form");
+                const formElements = addImgForm.querySelectorAll(".add-img-form > *");
+
+                formElements.forEach((element) => {
+                    element.style.display = "none";
+                });
+                selectedImage.style.display = "flex"
+            };
+
+            reader.readAsDataURL(file);
+        });
+
+        // add work       
+
+
 
         function modaleAddNewWork() {
             modalAddWorkConfirmButton.addEventListener("click", () => {

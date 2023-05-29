@@ -1,3 +1,3 @@
 - faire un aller retour plusieurs fois de suite avec la modale
-- La supression d'un projet ne recharge plus la page
-- afficher l'image selectionner lors de l'ajout du'un proejt
+- La supression d'un projet s'efface sans avoir à recharger la page
+- afficher l'image selectionner lors de l'ajout du'un projet
