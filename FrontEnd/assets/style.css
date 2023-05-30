@@ -205,13 +205,10 @@ body {
 
 dialog {
 	position: fixed;
-	height: 85%;
-	width: 40%;
+	width: 33%;
 	border-radius: 10px;
 	border: none;
-	top: 95%;
-	left: 40%;
-	transform: translate(-50%, -50%);
+	padding: 0;
 }
 
 dialog::backdrop {
@@ -231,13 +228,15 @@ dialog::backdrop {
 	flex-direction: column;
 	flex-wrap: wrap;
 	align-items: center;
-	padding-top: 35px;
+	padding: 30px 10px;
+	height: 97%;
 }
 
 .modal_content_add-work {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: 100%;
 }
 
 .modal_img {
@@ -325,15 +324,44 @@ dialog::backdrop {
 	left: 40px;
 }
 
+form {
+	width: 85%;
+}
+
+.selected-img {
+	display: none;
+	height: 100%;
+	width: 129px;
+}
+
 .add-img-form {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 30px 180px;
+	justify-content: center;
 	margin-top: 40px;
 	background-color: #E8F1F6;
 	margin-bottom: 10px;
 	border-radius: 5px;
+	height: 170px;
+	width: 100%;
+}
+
+.valid-form-message,
+.invalid-form-message,
+.invalid-request-form-message {
+	padding-bottom: 20px;
+}
+
+.valid-form-message {
+	color: green;
+	display: none;
+}
+
+.invalid-form-message,
+.invalid-request-form-message {
+	color: #D65353;
+	display: none;
 }
 
 .add-img-form i {
