@@ -106,7 +106,7 @@ function modalImgImport(worksArray) {
                 <p>éditer</p>
             </div>
         `;
-    });
+    })
     modalImg.innerHTML = modalContentHTML;
 
     const modalDeleteWorkIcon = document.querySelectorAll(".modal_trash-icon");
@@ -186,6 +186,7 @@ function modalVersionToAddWork() {
                 </form>
                 <p class="invalid-form-message">Veuillez remplir tous les champs pour ajouter un projet</p>
                 <p class="valid-form-message">Formulaire enregistré !</p>
+                <p class="invalid-request-form-message">Une erreur s'est produite lors de la soumission du formulaire</p>
                 <span class="modal_line"></span>
                 <button class="modal_add-work_confirm-btn">Valider</button>
             </div>
@@ -197,8 +198,9 @@ function modalVersionToAddWork() {
         const selectInput = document.getElementById("categorie");
         const modalAddWorkConfirmButton = document.querySelector(".modal_add-work_confirm-btn");
         const selectedImage = document.querySelector(".selected-img");
-        const invalidFormMessage = document.querySelector(".invalid-form-message")
-        const validFormMessage = document.querySelector(".valid-form-message")
+        const invalidFormMessage = document.querySelector(".invalid-form-message");
+        const validFormMessage = document.querySelector(".valid-form-message");
+        const invalidRequestFormMessage = document.querySelector(".invalid-request-form-message");
         const modalAddworkReturnIcon = document.querySelector(".modal_add-work_return-icon");
 
         modalAddworkReturnIcon.addEventListener("click", () => {
@@ -226,7 +228,11 @@ function modalVersionToAddWork() {
         // Add work
         function modalAddNewWork() {
             modalAddWorkConfirmButton.addEventListener("click", () => {
-
+                if (photoInput.value === '' || titleInput.value === '' || selectInput.value === '') {
+                    invalidFormMessage.style.display = "block";
+                    validFormMessage.style.display = "none"; // Masquer le message de validation
+                    return;
+                }
 
                 let formData = new FormData();
 
@@ -245,13 +251,14 @@ function modalVersionToAddWork() {
                 fetch("http://localhost:5678/api/works", addRequest)
                     .then((res) => {
                         if (res.ok) {
+                            invalidFormMessage.style.display = "none"; // Masquer le message d'erreur
                             validFormMessage.style.display = "block";
-                            invalidFormMessage.style.display = "none"
-                            modalAddWorkConfirmButton.style.backgroundColor = "#1D6154"
-                        } else if (photoInput || titleInput || selectInput === null) {
-                            invalidFormMessage.style.display = "block";
+                            modalAddWorkConfirmButton.style.backgroundColor = "#1D6154";
+                        } else {
+                            invalidFormMessage.style.display = "none";
+                            invalidRequestFormMessage.style.display = "block"
                         }
-                    })
+                    });
             });
         }
 
