@@ -155,6 +155,7 @@ function generateCategoryOptions() {
 
 function modalVersionToAddWork() {
     modalAddWorkBtn.addEventListener("click", () => {
+        console.log("test");
         initialModalContentHTML = modalContent.innerHTML;
 
         modalContent.innerHTML = "";
@@ -205,6 +206,8 @@ function modalVersionToAddWork() {
 
         modalAddworkReturnIcon.addEventListener("click", () => {
             modalContent.innerHTML = initialModalContentHTML;
+            modalImgImport(works);
+            modalAddNewWork();
         });
 
         photoInput.addEventListener("change", () => {
