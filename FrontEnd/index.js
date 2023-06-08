@@ -6,7 +6,6 @@ const modalButton = document.querySelectorAll(".modal-button");
 const closeModalIcon = document.querySelector(".close_modal_icon");
 const modalContent = document.querySelector(".modal_content");
 const editingToolsBanner = document.querySelector(".editing-tools-banner");
-const modalAddWorkBtn = document.querySelector(".modal_add-btn");
 let initialModalContentHTML = "";
 let works = [];
 let categories = [];
@@ -154,8 +153,8 @@ function generateCategoryOptions() {
 }
 
 function modalVersionToAddWork() {
+    const modalAddWorkBtn = document.querySelector(".modal_add-btn");
     modalAddWorkBtn.addEventListener("click", () => {
-        console.log("test");
         initialModalContentHTML = modalContent.innerHTML;
 
         modalContent.innerHTML = "";
@@ -193,7 +192,7 @@ function modalVersionToAddWork() {
             </div>
         `;
 
-        // Fonction de retour
+
         const photoInput = document.getElementById("photo");
         const titleInput = document.getElementById("titre");
         const selectInput = document.getElementById("categorie");
@@ -204,10 +203,11 @@ function modalVersionToAddWork() {
         const invalidRequestFormMessage = document.querySelector(".invalid-request-form-message");
         const modalAddworkReturnIcon = document.querySelector(".modal_add-work_return-icon");
 
+        // Fonction de retour
         modalAddworkReturnIcon.addEventListener("click", () => {
             modalContent.innerHTML = initialModalContentHTML;
             modalImgImport(works);
-            modalAddNewWork();
+            modalVersionToAddWork();
         });
 
         photoInput.addEventListener("change", () => {
