@@ -1,39 +1,44 @@
-const input = document.querySelectorAll(`input`);
+const inputs = document.querySelectorAll("input");
 const errorMessage = document.querySelector(".error-message");
 const loginBtn = document.querySelector(".login-btn");
 
-let loginRequest = {
-    method: "POST",
-    headers: {
-        "Content-type": "application/json"
-    },
-    body: null,
-    mode: "cors",
-    Credentials: "same-origin",
-};
+function loginRequest() {
+    const emailValue = inputs[0].value;
+    const passwordValue = inputs[1].value;
 
-function loginInputValue() {
-    const emailValue = input[0].value;
-    const passwordValue = input[1].value;
+    let loginRequest = {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            email: emailValue,
+            password: passwordValue,
+        }),
+        mode: "cors",
+        credentials: "same-origin",
+    };
 
-    loginRequest.body = JSON.stringify({
-        email: emailValue,
-        password: passwordValue,
-    });
-}
-
-loginBtn.addEventListener("click", async () => {
-    loginInputValue();
-    await fetch("http://localhost:5678/api/users/login", loginRequest)
+    fetch("http://localhost:5678/api/users/login", loginRequest)
         .then(res => res.json())
         .then(data => {
             let token = data.token;
             localStorage.setItem("Token", token);
             if (token) {
                 window.location.href = "./index.html";
-                console.log(data.token);
             } else {
                 errorMessage.style.visibility = "visible";
             }
         });
+}
+
+loginBtn.addEventListener("click", loginRequest);
+
+inputs.forEach(input => {
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            loginRequest();
+        }
+    });
 });
+

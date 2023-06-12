@@ -358,6 +358,10 @@ form {
 	display: none;
 }
 
+.active {
+	background-color: #1D6154;
+}
+
 .invalid-form-message,
 .invalid-request-form-message {
 	color: #D65353;
@@ -548,6 +552,8 @@ a {
 	width: 100%;
 	padding-bottom: 5px;
 }
+
+
 
 #contact {
 	width: 50%;
