@@ -359,7 +359,7 @@ form {
 }
 
 .active {
-	background-color: #1D6154;
+	background-color: #1D6154 !important;
 }
 
 .invalid-form-message,
@@ -466,7 +466,8 @@ nav li {
 	font-size: 1.2em;
 }
 
-li:hover {
+nav li:hover,
+nav a:hover {
 	color: #B1663C;
 }
 

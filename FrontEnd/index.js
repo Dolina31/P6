@@ -6,6 +6,8 @@ const modalButton = document.querySelectorAll(".modal-button");
 const closeModalIcon = document.querySelector(".close_modal_icon");
 const modalContent = document.querySelector(".modal_content");
 const editingToolsBanner = document.querySelector(".editing-tools-banner");
+const login = document.querySelector(".login")
+console.log(login);
 let works = [];
 let categories = [];
 
@@ -79,6 +81,12 @@ if (token) {
     modalButton.forEach((button) => {
         button.style.display = "flex";
     });
+
+    login.innerHTML = "logout"
+    login.addEventListener("click", () => {
+        localStorage.removeItem("Token")
+        window.location.href = "login.html"
+    })
 }
 
 // Request pour delete
