@@ -1,2 +1,0 @@
-- faire un aller retour plusieurs fois de suite avec la modale
-- supprimer modale et tout quand token plus valide
